@@ -1,3 +1,24 @@
+function createBoard(){
+    const scoreValue = [[16,15,14,13],[9,10,11,12],[8,7,6,5],[1,2,3,4]]
+    const board = document.querySelector('.main-board')
+    let str = "";
+    scoreValue.map(row => {
+        str += `
+            <div class="row">`
+        row.map(block => {
+                str += `
+                    <div class="block" data-value=${block}>
+                      ${block}
+                    </div>
+                `
+            })
+        
+        str += `</div>`
+    })
+    console.log(str);
+    board.innerHTML = str;
+}
+
 function roll(){
     const dice = document.querySelector("img");
     dice.classList.add("shake");

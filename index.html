@@ -7,10 +7,13 @@
     <title>Roll Dice</title>
     <link rel = "stylesheet" href="style.css">
 </head>
-<body>
+<body onload="createBoard()">
     <div class ="container">
-        <img src="assets/dice1.png" id="dice-id"/>
-        <button onclick="roll()">Roll Dice</button>
+        <div class="main-board"></div>  
+        <div class="dice-container">
+            <img src="assets/dice1.png" id="dice-id"/>
+            <button onclick="roll()">Roll Dice</button>
+        </div>
     </div>
     
     <script src ="main.js"></script>
