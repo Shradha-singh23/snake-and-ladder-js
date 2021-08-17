@@ -1,28 +1,50 @@
-const scoreValue = [
-    [16,15,14,13],
-    [9,10,11,12],
-    [8,7,6,5],
-    [1,2,3,4]
-]
+const n = 6;
+const matrixArray = [];
 
 const ladderMap = {
-    2: 11,
-    5: 9,
-    7:15
+    3: 11,
+    5: 23,
+    7:15,
+    21:33,
+    26:31
 }
 
 const snakeMap = {
-    14: 3,
-    12: 6,
-    10: 4
+    13: 6,
+    9: 4,
+    19: 2,
+    34: 22,
+    29: 16
 }
 const LADDER_CLASS = "ladder";
 const SNAKE_CLASS = "snake";
 
-function createBoard(){
+function createMatrix(){
+    let block = (n * n) + 1;
+    for(let column=1;column<=n;column++){
+        let rows = [];
+            if (column % 2 === 0){
+                block = block - n;
+                let value = block;
+                for(let row=1;row<=n;row++){
+                    rows.push(value);
+                    value++
+                }
+            }else{
+                for(let row=1;row<=n;row++){
+                block = block - 1;
+                rows.push(block);
+                }
+            }
+        matrixArray.push(rows)
+    }
+    createBoard(matrixArray) 
+}
+
+function createBoard(matrixArray){
     const board = document.querySelector('.main-board')
     let str = "";
-    scoreValue.map(row => {
+    matrixArray.map(row => {
         str += `
             <div class="row">`
         row.map(block => {
@@ -53,16 +75,16 @@ function changeCurrentPosition(diceValue){
     const activeBlockValue = parseInt(activeBlock.outerText);
     let presentValue = diceValue + activeBlockValue;
     if (snakeMap[presentValue]){
-        alert(`Oppsss! Your present Value is ${presentValue} & a snake has bitten you go back to ${snakeMap[presentValue]}`)
+        alert(`Oppsss! You're at ${presentValue} & a snake has bitten you go back to ${snakeMap[presentValue]}`)
         presentValue = snakeMap[presentValue];
         changeActiveClass(presentValue);
     }
     if (ladderMap[presentValue]){
-        alert(`Yayyy! Your present Value is ${presentValue},you got a ladder go to ${ladderMap[presentValue]}`)
+        alert(`Yayyy! You're at ${presentValue},you got a ladder go to ${ladderMap[presentValue]}`)
         presentValue = ladderMap[presentValue];
         changeActiveClass(presentValue);
     }
-    if (presentValue<=16){
+    if (presentValue <= (n*n)){
         changeActiveClass(presentValue);
     }
 }
